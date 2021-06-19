@@ -9,8 +9,9 @@ import { Provider } from 'react-redux';
 import {createStore} from 'redux';
 import firstReducer from './reducers/first.reducer';
 import secondReducer from './reducers/second.reducer';
+import indexReducer from './reducers/index.reducer';
 //My store has been created
-const store1 = createStore(secondReducer)
+const store1 = createStore(indexReducer);
 
 ReactDOM.render(
   <React.StrictMode>

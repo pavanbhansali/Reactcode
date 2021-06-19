@@ -1,8 +1,10 @@
-const firstAction = (payload) => {
-    return {
-        type: 'trigger',
-        payload
-    }
-}
+import { combineReducers } from "redux";
+import firstReducer from "./first.reducer";
+import secondReducer from "./second.reducer";
 
-export default firstAction;
+const indexReducer = combineReducers({
+    'first': firstReducer,
+    'second': secondReducer
+});
+
+export default indexReducer;

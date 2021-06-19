@@ -2,6 +2,8 @@
 // 'type': 'SET_AUTH',
 //'data': payload
 
+//App -> Dispatching data from App componnet -> Setting data to the store(mapDispatchToProps)
+//Person -> Able to get the data ->Get data from the store -> (mapStateToProps)
 
 const initialState = {
     authData: {}

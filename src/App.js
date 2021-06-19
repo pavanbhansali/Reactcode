@@ -18,6 +18,9 @@ import {
 } from "react-reactive-form";
 import { connect } from 'react-redux';
 import sendAuthData from './actions/second.action';
+import GoogleLogin from 'react-google-login';
+import Login from './Components/Login';
+import Logout from './Components/Logout';
 
 
 
@@ -30,13 +33,16 @@ const App = (props) => {
 
   const inputValueRef = React.createRef()
   const textAreaRef = React.createRef();
+  const [isLoggedIn,setIsLoggedIn] = useState(false);
+  // const [inputValue,setInputValue] = useState('');
+  const clientId = "576395696573-ejdfqgn7c0vu14kd8knhh8uftjqdin9j.apps.googleusercontent.com"
 
   console.log('props-- App.js',props);
   const myForm = FormBuilder.group({
     'username': '',
     'passwd': '',
-    'isChecked': [''],
-    'vaccineName': ['']
+    'isChecked': '',
+    'vaccineName': ''
   });
   
 
@@ -73,30 +79,77 @@ const App = (props) => {
     // axios.post('http://localhost:9000/todo/authenticateuser',payload).then(res=>console.log(res));
 
     props.sendAuthDataToStore(payload);
+    // dispatch(sendAuthData(payload))
+
 
   }
 
+  const onSuccess = (res) => {
+    console.log('Login Success: currentUser:', res.profileObj);
+    alert(
+      `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
+    );
+    // refreshTokenSetup(res);
+    setIsLoggedIn(true);
+  };
+  const onSuccessLogout = (res) => {
+    console.log('Login Success: currentUser:', res.profileObj);
+    alert(
+      `Logged out successfully `
+    );
+    // refreshTokenSetup(res);
+    setIsLoggedIn(false);
+  };
+
+  const onFailure = (res) => {
+    console.log('Login failed: res:', res);
+    alert(
+      `Failed to login. 😢 Please ping this to repo owner twitter.com/sivanesh_fiz`
+    );
+  };
+
+  
   
 
 
   return (
     <div>
 
+     {!isLoggedIn && <Login login = {onSuccess} />} 
+     {isLoggedIn && <Logout logout = {onSuccessLogout} />}
+     
+     {/* <FieldGroup control = {myForm}>
+       render = {
+       ({get}) => {
+        <form onSubmit = {handleSubmit}>
+          <FieldControl name = "username"
+          render = {
+            ({handler})=>(
+              <div>
+              <label>Enter Username</label>
+              <input {...handler()}/>
+              </div>
+            )
+          } />
+        </form>
+       }
+       
+       }
+     </FieldGroup> */}
+
     
-   <FieldGroup control = {myForm}
+   {/* <FieldGroup control = {myForm}
      render = {({get, invalid, reset, value }) => (
         <form onSubmit={handleSubmit}>
  
         <FieldControl
           name="username"
-          options={{ validators: Validators.required }}
+         
           render={({handler, touched, hasError}) => (
             <div>
               <label>Enter Username</label>
               <input {...handler()}/>
-              <span>
-                    {touched && hasError('required') && 'Password is required'}
-                  </span>
+              
             </div>
           )}
         />
@@ -139,7 +192,11 @@ const App = (props) => {
      
      } >
    </FieldGroup>
-   <button onClick = {submitForm}>Submit</button>
+   <button onClick = {submitForm}>Submit</button> */}
+
+
+
+
    </div>
    
   )
@@ -162,7 +219,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 
-export default connect( mapStateToProps,mapDispatchToProps)(App)
+export default connect(null,null)(App)
 
 
 
