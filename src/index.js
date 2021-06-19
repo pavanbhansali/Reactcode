@@ -15,9 +15,13 @@ const store1 = createStore(indexReducer);
 
 ReactDOM.render(
   <React.StrictMode>
+    <BrowserRouter>
     <Provider store = {store1}>
-    <App name="alex" age="23" />
+    <Route exact path = '/' component = {App} />
+    <Route exact path = "/persons" component = {Person} />
     </Provider>
+    </BrowserRouter>
+    
   
    
     {/* <App  name="maria" age="34" />

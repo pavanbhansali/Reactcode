@@ -2,8 +2,7 @@ import GoogleLogin from "react-google-login"
 
 const Login = (props) => {
 
-    const clientId = "576395696573-8fole69rfr5pr0221rs4a3v7m2v101ug.apps.googleusercontent.com"
-
+const clientId = "520083617994-5rco2nt009npo0ltgi3551auchb3gbsu.apps.googleusercontent.com";
 
     const onSuccess = (res) => {
         // console.log('Login Success: currentUser:', res.profileObj);
@@ -24,7 +23,7 @@ const Login = (props) => {
     return (
         <GoogleLogin
         clientId={clientId}
-        buttonText="Login"
+        buttonText="Sign In"
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={'single_host_origin'}

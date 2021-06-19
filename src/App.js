@@ -78,19 +78,19 @@ const App = (props) => {
 
     // axios.post('http://localhost:9000/todo/authenticateuser',payload).then(res=>console.log(res));
 
-    props.sendAuthDataToStore(payload);
+   
     // dispatch(sendAuthData(payload))
 
 
   }
 
-  const onSuccess = (res) => {
+  const onSuccessLogin = (res) => {
     console.log('Login Success: currentUser:', res.profileObj);
-    alert(
-      `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
-    );
+   
     // refreshTokenSetup(res);
     setIsLoggedIn(true);
+    props.sendAuthDataToStore(res.profileObj);
+    props.history.push('/persons');
   };
   const onSuccessLogout = (res) => {
     console.log('Login Success: currentUser:', res.profileObj);
@@ -99,6 +99,8 @@ const App = (props) => {
     );
     // refreshTokenSetup(res);
     setIsLoggedIn(false);
+    props.sendAuthDataToStore(null);
+    props.history.push('/');
   };
 
   const onFailure = (res) => {
@@ -113,9 +115,9 @@ const App = (props) => {
 
 
   return (
-    <div>
-
-     {!isLoggedIn && <Login login = {onSuccess} />} 
+    <div style = {{'textAlign': 'center'}}>
+     <h3>Login to Our Website!!</h3>
+     {!isLoggedIn && <Login login = {onSuccessLogin} />} 
      {isLoggedIn && <Logout logout = {onSuccessLogout} />}
      
      {/* <FieldGroup control = {myForm}>
@@ -208,9 +210,9 @@ const App = (props) => {
 // export const App; //named export
 
 
-const mapStateToProps = state => ({
-  ...state
-});
+// const mapStateToProps = state => ({
+//   ...state
+// });
 //sendAuthDataToStore is a action creator which helps in trggering yur sendAuthData action from app componnent
 const mapDispatchToProps = dispatch => (
   {
@@ -219,7 +221,12 @@ const mapDispatchToProps = dispatch => (
 );
 
 
-export default connect(null,null)(App)
+export default connect(null,mapDispatchToProps)(App)
+
+//connect will have two parameters -> mapstatetoprops,mapdispatchToProps
+
+//mapdispatchtoProps -> will send/duispatch the data to store.
+//mapstatetoprops -> will get the data from the store
 
 
 
