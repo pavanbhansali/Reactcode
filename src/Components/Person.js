@@ -4,9 +4,20 @@ import WithStyle from '../hoc/WithStyle';
 import withStyle from '../hoc/WithStyle';
 import Cockpit from './Cockpit';
 import Logout from './Logout';
+import axios from 'axios';
 const Person = props => {
 
+    // useEffect(async () => {
+
+    //     const toDoData = await axios.get('https://jsonplaceholder.typicode.com/todos');
+
+    //     console.log('tododata---',toDoData);
+
+    // },[]);
+
     let userData = props.userAuthData ? props.userAuthData : '';
+
+
     console.log('userdata---',userData);
     // useEffect(() => {
     //     console.log('inside person useeffect');

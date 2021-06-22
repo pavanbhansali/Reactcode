@@ -6,7 +6,8 @@
 //Person -> Able to get the data ->Get data from the store -> (mapStateToProps)
 
 const initialState = {
-    authData: {}
+    authData: {},
+    toDoData: null
 }
 
 
@@ -17,6 +18,11 @@ const secondReducer = (state= initialState,action) => {
             return {
                 ...state,
                 authData: action.payload
+            }
+        case 'SET_TO_DO_DATA': 
+            return {
+                ...state,
+                toDoData: action.payload
             }
         default:
             return state;

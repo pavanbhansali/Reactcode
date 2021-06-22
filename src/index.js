@@ -6,12 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Person from './Components/Person';
 import { Provider } from 'react-redux';
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import firstReducer from './reducers/first.reducer';
 import secondReducer from './reducers/second.reducer';
 import indexReducer from './reducers/index.reducer';
+import thunk from 'redux-thunk';
 //My store has been created
-const store1 = createStore(indexReducer);
+const store1 = createStore(indexReducer,applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>

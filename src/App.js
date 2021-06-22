@@ -17,7 +17,7 @@ import {
   Validators
 } from "react-reactive-form";
 import { connect } from 'react-redux';
-import sendAuthData from './actions/second.action';
+import {sendAuthData} from './actions/second.action';
 import GoogleLogin from 'react-google-login';
 import Login from './Components/Login';
 import Logout from './Components/Logout';
