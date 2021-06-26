@@ -5,6 +5,7 @@ import withStyle from '../hoc/WithStyle';
 import Cockpit from './Cockpit';
 import Logout from './Logout';
 import axios from 'axios';
+import { sendToDoData } from '../actions/second.action';
 const Person = props => {
 
     // useEffect(async () => {
@@ -15,10 +16,19 @@ const Person = props => {
 
     // },[]);
 
+    useEffect(() => {
+        props.getToDoData();
+    },[])
+
     let userData = props.userAuthData ? props.userAuthData : '';
+    let myToDoData = props.myToDoData ? props.myToDoData.data: [];
+    myToDoData = myToDoData.slice(0,4);
+
+    
 
 
     console.log('userdata---',userData);
+    console.log('tododata---',myToDoData);
     // useEffect(() => {
     //     console.log('inside person useeffect');
     //     return () => {
@@ -51,6 +61,16 @@ const Person = props => {
             <div>
                 <Logout logout = {logoutSuccess} />
             </div>
+            {
+                myToDoData.map(data => {
+                    return(
+                        <div>
+                            <h1>{data.title}</h1>
+                            </div>
+
+                    )
+                })
+            }
 
             {/* <input  onChange={props.inputChange}  type="text" ></input>
             <Cockpit /> */}
@@ -67,9 +87,17 @@ const Person = props => {
     
 
 }
-const mapStateToProps = (state)=> {
+
+const mapDispatchToProps = (dispatch) => {
     return {
-        'userAuthData': state.second.authData
+        getToDoData: ()=> dispatch(sendToDoData())
     }
 }
-export default connect(mapStateToProps,null)(Person);
+
+const mapStateToProps = (state)=> {
+    return {
+        'userAuthData': state.second.authData,
+        'myToDoData': state.second.toDoData
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Person);
